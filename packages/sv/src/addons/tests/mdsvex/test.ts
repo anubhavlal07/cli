@@ -8,14 +8,35 @@ import { svxFile } from './fixtures.ts';
 
 const { test, testCases, prepareServer } = setupTest(
 	{ mdsvex },
-	{ kinds: [{ type: 'default', options: { mdsvex: { extensions: ['.svx', '.md'] } } }] }
+	{
+		kinds: [
+			{ type: 'default', options: { mdsvex: { plugins: [] } } },
+			{
+				type: 'plugins',
+				options: { mdsvex: { plugins: ['callouts', 'figures', 'anchors', 'diagram'] } }
+			}
+		]
+	}
 );
 
-test.concurrent.for(testCases)('mdsvex $variant', async (testCase, { page, ...ctx }) => {
+test.concurrent.for(testCases)('mdsvex $kind.type $variant', async (testCase, { page, ...ctx }) => {
 	const cwd = ctx.cwd(testCase);
 
 	// ...add test files
 	addFixture(cwd, testCase.variant);
+
+	if (testCase.kind.type === 'plugins') {
+		const viteConfigFile = fs.existsSync(path.join(cwd, 'vite.config.ts'))
+			? 'vite.config.ts'
+			: 'vite.config.js';
+		const viteConfig = fs.readFileSync(path.join(cwd, viteConfigFile), 'utf8');
+		const packageJson = fs.readFileSync(path.join(cwd, 'package.json'), 'utf8');
+		expect(viteConfig).toContain('heading_ids: true');
+		expect(viteConfig).toContain('unwrap_images: true');
+		expect(viteConfig).toContain('plugins: [callouts(), diagram(), figures(), anchors()]');
+		expect(packageJson).toContain('"@mdsvex/plugin-callouts": "next"');
+		expect(packageJson).toContain('"mermaid": "^12.3.0"');
+	}
 
 	const { close } = await prepareServer({ cwd, page });
 	// kill server process when we're done
