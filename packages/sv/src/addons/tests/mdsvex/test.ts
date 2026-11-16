@@ -19,6 +19,10 @@ const { test, testCases, prepareServer } = setupTest(
 	}
 );
 
+test('uses a searchable plugin prompt', ({ expect: vExpect }) => {
+	vExpect(mdsvex.options.plugins.searchable).toBe(true);
+});
+
 test.concurrent.for(testCases)('mdsvex $kind.type $variant', async (testCase, { page, ...ctx }) => {
 	const cwd = ctx.cwd(testCase);
 

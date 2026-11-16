@@ -180,7 +180,8 @@ const options = defineAddonOptions<MdsvexOptions>()
 			hint: plugin.description
 		})),
 		default: [] as MdsvexOptions['plugins'],
-		required: false
+		required: false,
+		searchable: true
 	})
 	.build();
 

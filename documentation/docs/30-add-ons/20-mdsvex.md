@@ -10,7 +10,7 @@ title: mdsvex
 npx sv add mdsvex
 ```
 
-You can optionally select from mdsvex's first-party plugins:
+You can optionally select from mdsvex's first-party plugins with a searchable prompt:
 
 ```sh
 npx sv add 'mdsvex=plugins:callouts,toc'
