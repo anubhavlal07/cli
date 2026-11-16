@@ -170,23 +170,31 @@ const plugins = [
 
 export type MdsvexOptions = { plugins: MdsvexPlugin[] };
 
+const defaultPlugins: readonly MdsvexPlugin[] = [
+	'anchors',
+	'code-blocks',
+	'external-links',
+	'figures',
+	'page-data',
+	'toc'
+];
+
+const promptPlugins = [...plugins].sort((a, b) => {
+	const defaultOrder =
+		Number(defaultPlugins.includes(b.id)) - Number(defaultPlugins.includes(a.id));
+	return defaultOrder || a.id.localeCompare(b.id);
+});
+
 const options = defineAddonOptions<MdsvexOptions>()
 	.add('plugins', {
 		type: 'multiselect',
 		question: 'Which plugins would you like to add?',
-		options: plugins.map((plugin) => ({
+		options: promptPlugins.map((plugin) => ({
 			value: plugin.id,
 			label: plugin.id,
 			hint: plugin.description
 		})),
-		default: [
-			'page-data',
-			'anchors',
-			'toc',
-			'figures',
-			'code-blocks',
-			'external-links'
-		] as MdsvexOptions['plugins'],
+		default: [...defaultPlugins],
 		required: false,
 		searchable: true
 	})

@@ -22,12 +22,31 @@ const { test, testCases, prepareServer } = setupTest(
 test('configures the plugin prompt', ({ expect: vExpect }) => {
 	vExpect(mdsvex.options.plugins.searchable).toBe(true);
 	vExpect(mdsvex.options.plugins.default).toEqual([
-		'page-data',
 		'anchors',
-		'toc',
-		'figures',
 		'code-blocks',
-		'external-links'
+		'external-links',
+		'figures',
+		'page-data',
+		'toc'
+	]);
+	vExpect(mdsvex.options.plugins.options.map(({ value }) => value)).toEqual([
+		'anchors',
+		'code-blocks',
+		'external-links',
+		'figures',
+		'page-data',
+		'toc',
+		'callouts',
+		'citations',
+		'diagram',
+		'elements',
+		'embeds',
+		'emoji',
+		'link-check',
+		'numbering',
+		'references',
+		'steps',
+		'tabs'
 	]);
 });
 
