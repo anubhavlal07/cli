@@ -22,32 +22,37 @@ const { test, testCases, prepareServer } = setupTest(
 test('configures the plugin prompt', ({ expect: vExpect }) => {
 	vExpect(mdsvex.options.plugins.searchable).toBe(true);
 	vExpect(mdsvex.options.plugins.default).toEqual([
-		'anchors',
-		'code-blocks',
-		'external-links',
-		'figures',
 		'page-data',
-		'toc'
+		'anchors',
+		'toc',
+		'figures',
+		'code-blocks',
+		'external-links'
 	]);
 	vExpect(mdsvex.options.plugins.options.map(({ value }) => value)).toEqual([
-		'anchors',
-		'code-blocks',
-		'external-links',
-		'figures',
-		'page-data',
-		'toc',
 		'callouts',
-		'citations',
-		'diagram',
 		'elements',
-		'embeds',
-		'emoji',
-		'link-check',
-		'numbering',
-		'references',
 		'steps',
-		'tabs'
+		'tabs',
+		'emoji',
+		'code-blocks',
+		'diagram',
+		'embeds',
+		'figures',
+		'anchors',
+		'toc',
+		'external-links',
+		'references',
+		'citations',
+		'numbering',
+		'page-data',
+		'link-check'
 	]);
+	vExpect(
+		mdsvex.options.plugins.options
+			.filter(({ label }) => label?.endsWith(' *'))
+			.map(({ value }) => value)
+	).toEqual(['code-blocks', 'figures', 'anchors', 'toc', 'external-links', 'page-data']);
 });
 
 test.concurrent.for(testCases)('mdsvex $kind.type $variant', async (testCase, { page, ...ctx }) => {
