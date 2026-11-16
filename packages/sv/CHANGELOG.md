@@ -1,5 +1,13 @@
 # sv
 
+## 1.4.1
+
+### Patch Changes
+
+- fix(migrate): clear stale `.svelte-kit` files when migrating to SvelteKit 3 ([#1468](https://github.com/sveltejs/cli/pull/1468))
+
+- Add SvelteKit 3 migration guidance for removing obsolete .svelte-kit includes. ([#1467](https://github.com/sveltejs/cli/pull/1467))
+
 ## 1.4.0
 
 ### Minor Changes
