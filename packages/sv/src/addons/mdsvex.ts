@@ -179,7 +179,14 @@ const options = defineAddonOptions<MdsvexOptions>()
 			label: plugin.id,
 			hint: plugin.description
 		})),
-		default: [] as MdsvexOptions['plugins'],
+		default: [
+			'page-data',
+			'anchors',
+			'toc',
+			'figures',
+			'code-blocks',
+			'external-links'
+		] as MdsvexOptions['plugins'],
 		required: false,
 		searchable: true
 	})

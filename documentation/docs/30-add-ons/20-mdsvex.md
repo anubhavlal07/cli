@@ -16,6 +16,9 @@ You can optionally select from mdsvex's first-party plugins with a searchable pr
 npx sv add 'mdsvex=plugins:callouts,toc'
 ```
 
+The interactive prompt preselects page data, anchors, table of contents, figures, code blocks,
+and external links.
+
 ## What you get
 
 - mdsvex installed and configured as a Vite plugin

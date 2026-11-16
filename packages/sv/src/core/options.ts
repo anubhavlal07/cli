@@ -28,7 +28,6 @@ export type MultiSelectQuestion<Value> = {
 	default: NoInfer<Value[]>;
 	options: Array<{ value: Value; label?: string; hint?: string }>;
 	required: boolean;
-	/** Allow filtering the options by typing. */
 	searchable?: boolean;
 };
 
